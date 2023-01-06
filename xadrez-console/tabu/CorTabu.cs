@@ -10,6 +10,7 @@ namespace xadrez_console.tabu
     {
         Branca,
         Preta,
-        Laranja
+        Laranja,
+        Amarela
     }
 }

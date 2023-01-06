@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using xadrez_console.tabu;
+﻿using xadrez_console.tabu;
 
 namespace xadrez_console
 {
@@ -11,11 +6,11 @@ namespace xadrez_console
     {
         public static void imprimirTabuleiro(TabuleiroTabu tab)
         {
-            for(int i=0; i <tab.linhas; i++)
+            for (int i = 0; i < tab.linhas; i++)
             {
-                for(int j = 0; j < tab.colunas; j++)
+                for (int j = 0; j < tab.colunas; j++)
                 {
-                    if (tab.peca(i, j)==null)
+                    if (tab.peca(i, j) == null)
                     {
                         Console.Write("- ");
                     }
@@ -23,11 +18,11 @@ namespace xadrez_console
                     {
                         Console.Write(tab.peca(i, j) + "  ");
                     }
-
-                    Console.WriteLine();
                 }
 
-                
+                Console.WriteLine();
+
+
             }
         }
     }

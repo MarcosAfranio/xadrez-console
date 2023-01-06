@@ -11,11 +11,11 @@ namespace xadrez_console.tabu
         public TabuleiroTabu tab { get; protected set; }
 
 
-        public PecaTabu(CorTabu cor, TabuleiroTabu tab)
+        public PecaTabu(TabuleiroTabu tab, CorTabu cor)
         {
             posicao = null;
-            this.cor = cor;
             this.tab = tab;
+            this.cor = cor;
             qteMovimentos = 0;
         }
     }

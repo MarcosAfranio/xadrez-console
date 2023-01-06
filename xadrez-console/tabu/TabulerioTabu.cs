@@ -16,5 +16,10 @@ namespace xadrez_console.tabu
         {
             return pecas[linha, coluna];
         }
+        public void colocarPeca(PecaTabu p, Posicao pos)
+        {
+            pecas[pos.linha, pos.coluna] = p;
+            p.posicao = pos;
+        }
     }
 }
