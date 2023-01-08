@@ -1,6 +1,4 @@
 ﻿
-
-
 namespace xadrez_console.tabu
 {
     class PecaTabu
