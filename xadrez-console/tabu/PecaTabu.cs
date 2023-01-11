@@ -1,7 +1,7 @@
 ﻿
 namespace xadrez_console.tabu
 {
-    class PecaTabu
+    abstract class PecaTabu
     {
         public Posicao posicao { get; set; }
         public CorTabu cor { get; protected set; }
@@ -20,6 +20,11 @@ namespace xadrez_console.tabu
         public void incrementarQteMovimentos()
         {
             qteMovimentos++;
-        }
+        } 
+
+        public abstract bool[,] movimentosPossiveis();
+       
+
+        
     }
 }

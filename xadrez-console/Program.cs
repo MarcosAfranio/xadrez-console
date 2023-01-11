@@ -8,7 +8,7 @@ namespace xadrez_console
     {
         static void Main(string[] args)
         {
-            #region Tratamento excecoes
+
             try
             {
                 PartidaDeXadrez partida = new PartidaDeXadrez();
@@ -19,9 +19,15 @@ namespace xadrez_console
                     Tela.imprimirTabuleiro(partida.tab);
 
                     Console.WriteLine();
-
                     Console.Write("Origem: ");
                     Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+
+                    bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
+
+                    Console.Clear();
+                    Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
+
+                    Console.WriteLine();
                     Console.Write("Destino: ");
                     Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
 
@@ -32,15 +38,6 @@ namespace xadrez_console
             {
                 Console.WriteLine(e.Message);
             }
-
-
-            #endregion
-
-            //PosicaoXadrez pos = new PosicaoXadrez('c', 7);
-
-            ////Console.WriteLine(pos);
-
-            //Console.WriteLine(pos.toPosicao());
 
             Console.ReadKey();
 
