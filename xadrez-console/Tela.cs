@@ -6,6 +6,39 @@ namespace xadrez_console
 {
     class Tela
     {
+        public static void imprimirPartida(PartidaDeXadrez partida)
+        {
+            imprimirTabuleiro(partida.tab);
+            Console.WriteLine();
+            imprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine("Turno:  " + partida.turno);
+            Console.WriteLine("Agardando jogada:  " + partida.jogadorAtual);
+        }
+
+        public static void imprimirPecasCapturadas(PartidaDeXadrez partida)
+        {
+            Console.WriteLine("Peças Capturadas: ");
+            Console.Write("Brancas: ");
+            imprimirConjunto(partida.pecasCapturadas(CorTabu.Branca));
+            Console.Write("Pretas: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            imprimirConjunto(partida.pecasCapturadas(CorTabu.Preta));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+        }
+
+        public static void imprimirConjunto(HashSet<PecaTabu> conjunto)
+        {
+            Console.Write("[");
+            foreach (PecaTabu x in conjunto)
+            {
+                Console.Write(x + " ");
+            }
+            Console.WriteLine("]");
+        }
+
         public static void imprimirTabuleiro(TabuleiroTabu tab)
         {
             for (int i = 0; i < tab.linhas; i++)
@@ -15,7 +48,7 @@ namespace xadrez_console
                 for (int j = 0; j < tab.colunas; j++)
                 {
                     imprimirPeca(tab.peca(i, j));
-                    
+
                 }
 
                 Console.WriteLine();
@@ -28,7 +61,7 @@ namespace xadrez_console
         {
             ConsoleColor fundoOriginal = Console.BackgroundColor;
 
-            ConsoleColor fundoAlterado = ConsoleColor.DarkCyan;
+            ConsoleColor fundoAlterado = ConsoleColor.DarkGray;
 
             for (int i = 0; i < tab.linhas; i++)
             {
@@ -88,5 +121,5 @@ namespace xadrez_console
         }
     }
 }
-    
+
 
