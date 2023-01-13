@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using xadrez_console.tabu;
@@ -196,19 +197,39 @@ namespace xadrez_console.xadrez
 
         private void colocarPecas()
         {
-            colocarNovaPeca('c', 1, new TorreXadrez(tab, CorTabu.Branca));
-            colocarNovaPeca('c', 2, new TorreXadrez(tab, CorTabu.Branca));
-            colocarNovaPeca('d', 2, new TorreXadrez(tab, CorTabu.Branca));
-            colocarNovaPeca('e', 2, new TorreXadrez(tab, CorTabu.Branca));
-            colocarNovaPeca('e', 1, new TorreXadrez(tab, CorTabu.Branca));
-            colocarNovaPeca('d', 1, new ReiXadrez(tab, CorTabu.Branca));
+            colocarNovaPeca('a', 1, new TorreXadrez(tab, CorTabu.Branca));
+            colocarNovaPeca('b', 1, new CavaloXadrez(tab, CorTabu.Branca));
+            colocarNovaPeca('c', 1, new BispoXadrez(tab, CorTabu.Branca));
+            colocarNovaPeca('d', 1, new DamaXadrez(tab, CorTabu.Branca));
+            colocarNovaPeca('e', 1, new ReiXadrez(tab, CorTabu.Branca, this));
+            colocarNovaPeca('f', 1, new BispoXadrez(tab, CorTabu.Branca));
+            colocarNovaPeca('g', 1, new CavaloXadrez(tab, CorTabu.Branca));
+            colocarNovaPeca('h', 1, new TorreXadrez(tab, CorTabu.Branca));
+            colocarNovaPeca('a', 2, new PeaoXadrez(tab, CorTabu.Branca, this));
+            colocarNovaPeca('b', 2, new PeaoXadrez(tab, CorTabu.Branca, this));
+            colocarNovaPeca('c', 2, new PeaoXadrez(tab, CorTabu.Branca, this));
+            colocarNovaPeca('d', 2, new PeaoXadrez(tab, CorTabu.Branca, this));
+            colocarNovaPeca('e', 2, new PeaoXadrez(tab, CorTabu.Branca, this));
+            colocarNovaPeca('f', 2, new PeaoXadrez(tab, CorTabu.Branca, this));
+            colocarNovaPeca('g', 2, new PeaoXadrez(tab, CorTabu.Branca, this));
+            colocarNovaPeca('h', 2, new PeaoXadrez(tab, CorTabu.Branca, this));
 
-            colocarNovaPeca('c', 7, new TorreXadrez(tab, CorTabu.Preta));
-            colocarNovaPeca('c', 8, new TorreXadrez(tab, CorTabu.Preta));
-            colocarNovaPeca('d', 7, new TorreXadrez(tab, CorTabu.Preta));
-            colocarNovaPeca('e', 7, new TorreXadrez(tab, CorTabu.Preta));
-            colocarNovaPeca('e', 8, new TorreXadrez(tab, CorTabu.Preta));
-            colocarNovaPeca('d', 8, new ReiXadrez(tab, CorTabu.Preta));
+            colocarNovaPeca('a', 8, new TorreXadrez(tab, CorTabu.Preta));
+            colocarNovaPeca('b', 8, new CavaloXadrez(tab, CorTabu.Preta));
+            colocarNovaPeca('c', 8, new BispoXadrez(tab, CorTabu.Preta));
+            colocarNovaPeca('d', 8, new DamaXadrez(tab, CorTabu.Preta));
+            colocarNovaPeca('e', 8, new ReiXadrez(tab, CorTabu.Preta, this));
+            colocarNovaPeca('f', 8, new BispoXadrez(tab, CorTabu.Preta));
+            colocarNovaPeca('g', 8, new CavaloXadrez(tab, CorTabu.Preta));
+            colocarNovaPeca('h', 8, new TorreXadrez(tab, CorTabu.Preta));
+            colocarNovaPeca('a', 7, new PeaoXadrez(tab, CorTabu.Preta, this));
+            colocarNovaPeca('b', 7, new PeaoXadrez(tab, CorTabu.Preta, this));
+            colocarNovaPeca('c', 7, new PeaoXadrez(tab, CorTabu.Preta, this));
+            colocarNovaPeca('d', 7, new PeaoXadrez(tab, CorTabu.Preta, this));
+            colocarNovaPeca('e', 7, new PeaoXadrez(tab, CorTabu.Preta, this));
+            colocarNovaPeca('f', 7, new PeaoXadrez(tab, CorTabu.Preta, this));
+            colocarNovaPeca('g', 7, new PeaoXadrez(tab, CorTabu.Preta, this));
+            colocarNovaPeca('h', 7, new PeaoXadrez(tab, CorTabu.Preta, this));
         }
     }
 }
