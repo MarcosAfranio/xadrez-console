@@ -16,6 +16,7 @@ namespace xadrez_console.xadrez
         private HashSet<PecaTabu> pecas;
         private HashSet<PecaTabu> capturadas;
         public bool xeque { get; private set; }
+        public PecaTabu vulneravelEnPassant { get; private set; }
 
         public PartidaDeXadrez()
         {
@@ -24,6 +25,7 @@ namespace xadrez_console.xadrez
             jogadorAtual = CorTabu.Branca;
             terminada = false;
             xeque= false;
+            vulneravelEnPassant = null;
             pecas = new HashSet<PecaTabu>();
             capturadas = new HashSet<PecaTabu>();
             colocarPecas();
