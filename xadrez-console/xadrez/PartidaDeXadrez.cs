@@ -25,7 +25,7 @@ namespace xadrez_console.xadrez
             turno = 1;
             jogadorAtual = CorTabu.Branca;
             terminada = false;
-            xeque= false;
+            xeque = false;
             vulneravelEnPassant = null;
             pecas = new HashSet<PecaTabu>();
             capturadas = new HashSet<PecaTabu>();
@@ -39,14 +39,14 @@ namespace xadrez_console.xadrez
             PecaTabu pecaCapturada = tab.retirarPeca(destino);
             tab.colocarPeca(p, destino);
 
-            if(pecaCapturada != null)
+            if (pecaCapturada != null)
             {
                 capturadas.Add(pecaCapturada);
             }
 
             // #jogadaespecial roque pequeno
 
-            if(p is ReiXadrez && destino.coluna == origem.coluna + 2)
+            if (p is ReiXadrez && destino.coluna == origem.coluna + 2)
             {
                 Posicao origemT = new Posicao(origem.linha, origem.coluna + 3);
                 Posicao destinoT = new Posicao(origem.linha, origem.coluna + 1);
@@ -65,6 +65,25 @@ namespace xadrez_console.xadrez
                 T.incrementarQteMovimentos();
                 tab.colocarPeca(T, destinoT);
             }
+
+            // #jogadaespecial en passant
+            if (p is PeaoXadrez)
+            {
+                if (origem.coluna != destino.coluna && pecaCapturada == null)
+                {
+                    Posicao posP;
+                    if (p.cor == CorTabu.Branca)
+                    {
+                        posP = new Posicao(destino.linha + 1, destino.coluna);
+                    }
+                    else
+                    {
+                        posP = new Posicao(destino.linha - 1, destino.coluna);
+                    }
+                    pecaCapturada = tab.retirarPeca(posP);
+                    capturadas.Add(pecaCapturada);
+                }
+            }
             return pecaCapturada;
         }
 
@@ -73,7 +92,7 @@ namespace xadrez_console.xadrez
             PecaTabu p = tab.retirarPeca(destino);
             p.decrementarQteMovimentos();
 
-            if(pecaCapiturada != null)
+            if (pecaCapiturada != null)
             {
                 tab.colocarPeca(pecaCapiturada, destino);
                 capturadas.Remove(pecaCapiturada);
@@ -101,6 +120,25 @@ namespace xadrez_console.xadrez
                 T.decrementarQteMovimentos();
                 tab.colocarPeca(T, origemT);
             }
+
+            // #jogadaespecial en passant
+            if (p is PeaoXadrez)
+            {
+                if (origem.coluna != destino.coluna && pecaCapiturada == vulneravelEnPassant)
+                {
+                    PecaTabu peao = tab.retirarPeca(destino);
+                    Posicao posP;
+                    if (p.cor == CorTabu.Branca)
+                    {
+                        posP = new Posicao(3, destino.coluna);
+                    }
+                    else
+                    {
+                        posP = new Posicao(4, destino.coluna);
+                    }
+                    tab.colocarPeca(peao, posP);
+                }
+            }
         }
 
         public void realizaJogada(Posicao origem, Posicao destino)
@@ -123,6 +161,18 @@ namespace xadrez_console.xadrez
 
             turno++;
             mudaJogador();
+
+            PecaTabu p = tab.peca(destino);
+
+            if (p is PeaoXadrez && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2))
+            {
+                vulneravelEnPassant = p;
+            }
+            else
+            {
+                vulneravelEnPassant = null;
+            }
+
         }
 
         public void validarPosicaoDeOrigem(Posicao pos)
@@ -166,10 +216,10 @@ namespace xadrez_console.xadrez
 
         public HashSet<PecaTabu> pecasCapturadas(CorTabu cor)
         {
-            HashSet<PecaTabu> aux= new HashSet<PecaTabu>();
-            foreach(PecaTabu x in capturadas)
+            HashSet<PecaTabu> aux = new HashSet<PecaTabu>();
+            foreach (PecaTabu x in capturadas)
             {
-                if(x.cor == cor)
+                if (x.cor == cor)
                 {
                     aux.Add(x);
                 }
@@ -191,9 +241,9 @@ namespace xadrez_console.xadrez
             return aux;
         }
 
-        private CorTabu adversaria (CorTabu cor)
+        private CorTabu adversaria(CorTabu cor)
         {
-            if(cor == CorTabu.Branca)
+            if (cor == CorTabu.Branca)
             {
                 return CorTabu.Preta;
             }
@@ -205,9 +255,9 @@ namespace xadrez_console.xadrez
 
         private PecaTabu rei(CorTabu cor)
         {
-            foreach(PecaTabu x in pecasEmJogo(cor))
+            foreach (PecaTabu x in pecasEmJogo(cor))
             {
-                if(x is ReiXadrez)
+                if (x is ReiXadrez)
                 {
                     return x;
                 }
@@ -218,11 +268,11 @@ namespace xadrez_console.xadrez
         public bool estaEmXeque(CorTabu cor)
         {
             PecaTabu R = rei(cor);
-            if(R == null)
+            if (R == null)
             {
                 throw new TabuleiroException("Não tem Rei da cor " + cor + "no Tabuleiro!");
             }
-            foreach(PecaTabu x in pecasEmJogo(adversaria(cor)))
+            foreach (PecaTabu x in pecasEmJogo(adversaria(cor)))
             {
                 bool[,] mat = x.movimentosPossiveis();
                 if (mat[R.posicao.linha, R.posicao.coluna])
