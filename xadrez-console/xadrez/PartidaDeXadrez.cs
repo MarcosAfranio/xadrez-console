@@ -150,6 +150,22 @@ namespace xadrez_console.xadrez
                 desfazMovimento(origem, destino, pecaCapurada);
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
+
+            PecaTabu p = tab.peca(destino);
+
+            // #jogadaespecial promocao
+            if (p is PeaoXadrez)
+            {
+                if ((p.cor == CorTabu.Branca && destino.linha == 0) || (p.cor == CorTabu.Preta && destino.linha == 7))
+                {
+                    p = tab.retirarPeca(destino);
+                    pecas.Remove(p);
+                    PecaTabu dama = new DamaXadrez(tab, p.cor);
+                    tab.colocarPeca(dama, destino);
+                    pecas.Add(dama);
+                }
+            }
+
             if (estaEmXeque(adversaria(jogadorAtual)))
             {
                 xeque = true;
@@ -162,8 +178,7 @@ namespace xadrez_console.xadrez
             turno++;
             mudaJogador();
 
-            PecaTabu p = tab.peca(destino);
-
+            // #jogadaespecial en passant
             if (p is PeaoXadrez && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2))
             {
                 vulneravelEnPassant = p;
